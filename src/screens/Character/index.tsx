@@ -8,6 +8,9 @@ import {characterItemProps, WorkflowData} from '../../types/componentType';
 import CharacterDetailModal from '../Modal/CharacterDetail';
 import styles from './styles';
 
+/**
+ * Character - Screen in show list character
+ **/
 const Character = () => {
   const [page, setPage] = useState(1);
   const [loadMore, setLoadMore] = useState(true);
@@ -18,22 +21,26 @@ const Character = () => {
     WorkflowData | undefined
   >();
 
+  //useEffect - launch screen of call
   useEffect(() => {
-    getChanaracterData();
+    getCharacterData();
   }, []);
 
+  //useEffect on [isModalVisible] - If the isModalVisible changes, get the location data
   useEffect(() => {
     if (isModalVisible && singleCharacterData) {
       getLocationData(singleCharacterData?.location?.url || '');
     }
   }, [isModalVisible]);
 
-  const getChanaracterData = async () => {
+  //getCharacterData - get character using api call
+  const getCharacterData = async () => {
     await GET(APIS.GET_CHARACTER + page).then((res: any) => {
       setCharacterData(res.results);
     });
   };
 
+  //loadMorePages - increase the page count and call api
   const loadMorePages = async () => {
     if (!loadMore) return;
     const tempPage = page + 1;
@@ -42,6 +49,7 @@ const Character = () => {
     fetchMoreCharacterData(page);
   };
 
+  //fetchMoreCharacterData - get character using api call.
   const fetchMoreCharacterData = async (page: number) => {
     await GET(APIS.GET_CHARACTER + page).then((res: any) => {
       if (res.results.length === 0) {
@@ -52,21 +60,25 @@ const Character = () => {
     });
   };
 
+  //onPressCloseModal - Close character details modal
   const onPressCloseModal = () => {
     setIsModalVisible(false);
   };
 
+  //onPressCloseModal - Open character details modal and set that particuler character item
   const onPressOpenModal = (item: WorkflowData) => {
     setSingleCharacterData(item);
     setIsModalVisible(true);
   };
 
+  //getLocationData - get location data using api call.
   const getLocationData = async (url: string) => {
     await GET(url).then((res: any) => {
       setLocationData(res);
     });
   };
 
+  //Redering character item
   const renderItem = ({item, index}: characterItemProps) => {
     return (
       <CharacterItem

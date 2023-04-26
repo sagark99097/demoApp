@@ -7,6 +7,9 @@ import styles from './styles';
 import strings from '../../../common/strings';
 import {CharacterDetailsProps} from '../../../types/Modal';
 
+/**
+ * CharacterDetails - CharacterDetails Modal is a component that slides up from the bottom of the screen to showcase additional content in screen.
+ **/
 const CharacterDetails = ({
   onBackdropPress,
   isVisible,

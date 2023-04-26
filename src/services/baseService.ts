@@ -25,7 +25,6 @@ export const GET = async (url: string, params?: {[name: string]: string}) => {
       url: url,
       headers: {
         ...commonHeaders,
-        'app-id': '600c4c7e43aa981852b532ef',
       },
     })
       .then(response => {

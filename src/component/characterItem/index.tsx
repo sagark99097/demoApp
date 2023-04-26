@@ -6,6 +6,9 @@ import strings from '../../common/strings';
 import {characterItemProps} from '../../types/componentType';
 import styles from './styles';
 
+/**
+ * CharacterItem - Show charater item details
+ **/
 const CharacterItem = ({onPressOpenModal, item, index}: characterItemProps) => {
   return (
     <TouchableOpacity

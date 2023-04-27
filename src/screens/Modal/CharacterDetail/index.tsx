@@ -1,7 +1,6 @@
 import React from 'react';
-import {TouchableOpacity, View, Text, ScrollView} from 'react-native';
-import Modal from 'react-native-modal';
 import FastImage from 'react-native-fast-image';
+import {TouchableOpacity, View, Text, ScrollView, Modal} from 'react-native';
 
 import styles from './styles';
 import strings from '../../../common/strings';
@@ -18,8 +17,9 @@ const CharacterDetails = ({
 }: CharacterDetailsProps) => {
   return (
     <Modal
-      onBackdropPress={onBackdropPress}
-      isVisible={isVisible}
+      animationType="slide"
+      transparent={true}
+      visible={isVisible}
       style={styles.modalStyle}>
       <View style={styles.flex1}>
         <TouchableOpacity onPress={onBackdropPress} style={styles.flex1} />

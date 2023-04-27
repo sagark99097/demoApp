@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   },
   flex1: {
     flex: 1,
+    backgroundColor: theme.colors.blackTransparent,
   },
   panel: {
     height: 7,

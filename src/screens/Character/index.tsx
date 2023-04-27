@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList, SafeAreaView} from 'react-native';
+import {FlatList, SafeAreaView, Alert} from 'react-native';
 
 import CharacterItem from '../../component/characterItem';
 import APIS from '../../services/Apis';
@@ -34,14 +34,18 @@ const Character = () => {
   }, [isModalVisible]);
 
   //getCharacterData - get character using api call
-  const getCharacterData = async () => {
-    await GET(APIS.GET_CHARACTER + page).then((res: any) => {
-      setCharacterData(res.results);
-    });
+  const getCharacterData = () => {
+    GET(APIS.GET_CHARACTER + page)
+      .then((res: any) => {
+        setCharacterData(res.results);
+      })
+      .catch(() => {
+        Alert.alert('Something went wrong');
+      });
   };
 
   //loadMorePages - increase the page count and call api
-  const loadMorePages = async () => {
+  const loadMorePages = () => {
     if (!loadMore) return;
     const tempPage = page + 1;
     setPage(tempPage);
@@ -50,14 +54,18 @@ const Character = () => {
   };
 
   //fetchMoreCharacterData - get character using api call.
-  const fetchMoreCharacterData = async (page: number) => {
-    await GET(APIS.GET_CHARACTER + page).then((res: any) => {
-      if (res.results.length === 0) {
-        setLoadMore(false);
-      }
-      const tempArr: any = [...characterData, ...res.results];
-      setCharacterData(tempArr);
-    });
+  const fetchMoreCharacterData = (page: number) => {
+    GET(APIS.GET_CHARACTER + page)
+      .then((res: any) => {
+        if (res.results.length === 0) {
+          setLoadMore(false);
+        }
+        const tempArr: any = [...characterData, ...res.results];
+        setCharacterData(tempArr);
+      })
+      .catch(() => {
+        Alert.alert('Something went wrong');
+      });
   };
 
   //onPressCloseModal - Close character details modal
